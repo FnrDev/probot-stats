@@ -61,7 +61,19 @@ router.post('/', async (request, env) => {
             return new respond({
               type: InteractionResponseType.ChannelMessageWithSource,
               data: {
-                content: data.join("\n")
+                content: data.join("\n"),
+                components: [
+                  {
+                    type: 1,
+                    components: [
+                      {
+                        type: 2,
+                        style: 5,
+                        label: "View Richest 100 billionaires"
+                      }
+                    ]
+                  }
+                ]
               }
             })
           }
@@ -70,7 +82,19 @@ router.post('/', async (request, env) => {
             return new respond({
               type: InteractionResponseType.ChannelMessageWithSource,
               data: {
-                content: data.join("\n")
+                content: data.join("\n"),
+                components: [
+                  {
+                    type: 1,
+                    components: [
+                      {
+                        type: 2,
+                        style: 5,
+                        label: "View Top 100 By Xp"
+                      }
+                    ]
+                  }
+                ]
               }
             })
           }
