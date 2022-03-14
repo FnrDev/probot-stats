@@ -3,7 +3,9 @@ import { verifyKey } from "discord-interactions";
 import {
   InteractionType,
   InteractionResponseType,
-  MessageFlags
+  MessageFlags,
+  ButtonStyle,
+  ComponentType
 } from "discord-api-types/v9";
 import { respond } from "./util/respond";
 import { fetchCreditsData, fetchXpData } from "./handlers/Top";
@@ -64,11 +66,11 @@ router.post('/', async (request, env) => {
                 content: data.join("\n"),
                 components: [
                   {
-                    type: 1,
+                    type: ComponentType.ActionRow,
                     components: [
                       {
-                        type: 2,
-                        style: 5,
+                        type: ComponentType.Button,
+                        style: ButtonStyle.Link,
                         label: "View Richest 100 billionaires"
                       }
                     ]
@@ -85,11 +87,11 @@ router.post('/', async (request, env) => {
                 content: data.join("\n"),
                 components: [
                   {
-                    type: 1,
+                    type: ComponentType.ActionRow,
                     components: [
                       {
-                        type: 2,
-                        style: 5,
+                        type: ComponentType.Button,
+                        style: ButtonStyle.Link,
                         label: "View Top 100 By Xp"
                       }
                     ]
