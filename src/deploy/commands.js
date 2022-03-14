@@ -16,6 +16,7 @@ module.exports = [
                 name: "type",
                 description: "Select type",
                 type: 3,
+                required: true,
                 choices: [
                     {
                         name: "Credits",
