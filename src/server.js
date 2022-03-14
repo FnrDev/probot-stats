@@ -3,7 +3,9 @@ import { verifyKey } from "discord-interactions";
 import {
   InteractionType,
   InteractionResponseType,
-  MessageFlags
+  MessageFlags,
+  ButtonStyle,
+  ComponentType
 } from "discord-api-types/v9";
 import { respond } from "./util/respond";
 import { fetchCreditsData, fetchXpData } from "./handlers/Top";
@@ -39,6 +41,9 @@ router.post('/', async (request, env) => {
         }
 
         if (interaction.data.name === 'stats') {
+          await new respond({
+            type: InteractionResponseType.DeferredChannelMessageWithSource
+          })
           const data = await fetchStats();
           return new respond({
             type: InteractionResponseType.ChannelMessageWithSource,
@@ -49,18 +54,28 @@ router.post('/', async (request, env) => {
         }
 
         if (interaction.data.name === 'top') {
-          console.log('Started defering ...')
           await new respond({
             type: InteractionResponseType.DeferredChannelMessageWithSource
           })
-          console.log('ended defering ...')
           const type = interaction.data.options[0].value;
           if (type === 'credits') {
             const data = await fetchCreditsData();
             return new respond({
               type: InteractionResponseType.ChannelMessageWithSource,
               data: {
-                content: data.join("\n")
+                content: data.join("\n"),
+                components: [
+                  {
+                    type: ComponentType.ActionRow,
+                    components: [
+                      {
+                        type: ComponentType.Button,
+                        style: ButtonStyle.Link,
+                        label: "View Richest 100 billionaires"
+                      }
+                    ]
+                  }
+                ]
               }
             })
           }
@@ -69,7 +84,19 @@ router.post('/', async (request, env) => {
             return new respond({
               type: InteractionResponseType.ChannelMessageWithSource,
               data: {
-                content: data.join("\n")
+                content: data.join("\n"),
+                components: [
+                  {
+                    type: ComponentType.ActionRow,
+                    components: [
+                      {
+                        type: ComponentType.Button,
+                        style: ButtonStyle.Link,
+                        label: "View Top 100 By Xp"
+                      }
+                    ]
+                  }
+                ]
               }
             })
           }
