@@ -71,6 +71,7 @@ router.post('/', async (request, env) => {
                       {
                         type: ComponentType.Button,
                         style: ButtonStyle.Link,
+                        url: "https://probot.io/top/credits",
                         label: "View Richest 100 billionaires"
                       }
                     ]
@@ -92,6 +93,7 @@ router.post('/', async (request, env) => {
                       {
                         type: ComponentType.Button,
                         style: ButtonStyle.Link,
+                        url: "https://probot.io/top/xp",
                         label: "View Top 100 By Xp"
                       }
                     ]
