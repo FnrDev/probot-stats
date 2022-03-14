@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "wrangler dev src/server.js",
-    "slash": "node src/register.js",
+    "slash": "node src/deploy/register.js",
     "publish": "wrangler publish",
     "ngrok": "ngrok http 8787"
   },

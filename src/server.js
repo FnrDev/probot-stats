@@ -39,6 +39,9 @@ router.post('/', async (request, env) => {
         }
 
         if (interaction.data.name === 'stats') {
+          await new respond({
+            type: InteractionResponseType.DeferredChannelMessageWithSource
+          })
           const data = await fetchStats();
           return new respond({
             type: InteractionResponseType.ChannelMessageWithSource,
@@ -49,11 +52,9 @@ router.post('/', async (request, env) => {
         }
 
         if (interaction.data.name === 'top') {
-          console.log('Started defering ...')
           await new respond({
             type: InteractionResponseType.DeferredChannelMessageWithSource
           })
-          console.log('ended defering ...')
           const type = interaction.data.options[0].value;
           if (type === 'credits') {
             const data = await fetchCreditsData();
