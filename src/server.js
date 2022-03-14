@@ -5,20 +5,12 @@ import {
   InteractionResponseType,
   MessageFlags
 } from "discord-api-types/v9";
+import { respond } from "./util/respond";
 import { fetchCreditsData, fetchXpData } from "./handlers/Top";
 import { fetchStats } from "./handlers/Stats";
+import { GUILDS_EMOJI, MEMBERS_EMOJI } from "./util/constants";
+import millify from "millify";
 
-class respond extends Response {
-  constructor(body, init) {
-    const jsonBody = JSON.stringify(body);
-    init = init || {
-      headers: {
-        'content-type': 'application/json;charset=UTF-8',
-      },
-    };
-    super(jsonBody, init);
-  }
-}
 
 const router = Router();
 
@@ -51,7 +43,7 @@ router.post('/', async (request, env) => {
           return new respond({
             type: InteractionResponseType.ChannelMessageWithSource,
             data: {
-              content: `**Guilds:** ${data.guilds.toLocaleString()}\n**Members:** ${data.members.toLocaleString()}`
+              content: `${GUILDS_EMOJI} **Guilds:** ${data.guilds.toLocaleString()} **(${millify(data.guilds)})**\n${MEMBERS_EMOJI} **Members:** ${data.members.toLocaleString()} **(${millify(data.members)})**`
             }
           })
         }
