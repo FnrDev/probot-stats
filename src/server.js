@@ -12,6 +12,7 @@ import { fetchCreditsData, fetchXpData } from "./handlers/Top";
 import { fetchStats } from "./handlers/Stats";
 import { GUILDS_EMOJI, MEMBERS_EMOJI } from "./util/constants";
 import millify from "millify";
+import { handleButton } from './handlers/handleComponent';
 
 
 const router = Router();
@@ -60,25 +61,14 @@ router.post('/', async (request, env) => {
           const type = interaction.data.options[0].value;
           if (type === 'credits') {
             const data = await fetchCreditsData();
-            return new respond({
-              type: InteractionResponseType.ChannelMessageWithSource,
-              data: {
-                content: data.join("\n"),
-                components: [
-                  {
-                    type: ComponentType.ActionRow,
-                    components: [
-                      {
-                        type: ComponentType.Button,
-                        style: ButtonStyle.Link,
-                        url: "https://probot.io/top/credits",
-                        label: "View Richest 100 billionaires"
-                      }
-                    ]
-                  }
-                ]
-              }
-            })
+            handleButton(
+              InteractionResponseType.ChannelMessageWithSource,
+              data.join("\n"),
+              ButtonStyle.Link,
+              'View Top 100 By Credits',
+              undefined,
+              'https://probot.io/top/credits'
+            )
           }
           if (type === 'xp') {
             const data = await fetchXpData();
