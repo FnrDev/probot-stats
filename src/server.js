@@ -58,8 +58,9 @@ router.post('/', async (request, env) => {
             type: InteractionResponseType.DeferredChannelMessageWithSource
           })
           const type = interaction.data.options[0].value;
+          const limit = interaction.data.options[1].value;
           if (type === 'credits') {
-            const data = await fetchCreditsData();
+            const data = await fetchCreditsData(limit ? limit : 10);
             return new respond({
               type: InteractionResponseType.ChannelMessageWithSource,
               data: {
@@ -81,7 +82,7 @@ router.post('/', async (request, env) => {
             })
           }
           if (type === 'xp') {
-            const data = await fetchXpData();
+            const data = await fetchXpData(limit ? limit : 10);
             return new respond({
               type: InteractionResponseType.ChannelMessageWithSource,
               data: {

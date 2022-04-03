@@ -27,6 +27,11 @@ module.exports = [
                         value: "xp"
                     }
                 ]
+            },
+            {
+                name: "limit",
+                description: "Display number of members",
+                type: 4
             }
         ]
     }
